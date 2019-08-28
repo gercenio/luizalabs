@@ -1,0 +1,24 @@
+version: '3'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: .docker/Dockerfile
+    image: luizalabs-docker
+    ports:
+      - 8000:8000
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development # se quiser pode por essa variável de ambiente
+    volumes:
+      - .:/app
+    depends_on:
+      - mysql
+  mysql:
+    image: mysql:5.6
+    ports:
+      - 3306:3306
+      volumes:
+      - data:/var/lib/mysql
+   environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=luizalabs
